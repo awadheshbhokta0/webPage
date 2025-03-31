@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>3D eCommerce Store</title>
+    <style>
+        /* Global reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f5f5f5;
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        /* Header */
+        header {
+            width: 100%;
+            background-color: #333;
+            color: white;
+            padding: 30px 0;
+            text-align: center;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        header h1 {
+            font-size: 2.8rem;
+            letter-spacing: 2px;
+        }
+
+        /* Navbar */
+        nav {
+            width: 100%;
+            background-color: #212121;
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 20px;
+            align-items: center;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 1.1rem;
+            margin: 0 15px;
+            transition: color 0.3s ease;
+        }
+
+        nav a:hover {
+            color: #ff5722;
+        }
+
+        /* Search bar styling */
+        .search-container {
+            display: flex;
+            align-items: center;
+        }
+
+        .search-input {
+            padding: 8px 12px;
+            font-size: 1rem;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            margin-left: 15px;
+            width: 250px;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: #ff5722;
+        }
+
+        /* Product section */
+        .product-section {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+            padding: 40px;
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            transition: all 0.3s ease;
+        }
+
+        /* Product card */
+        .product {
+            position: relative;
+            width: 100%;
+            height: 350px;
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            background-color: white;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .product:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .product-inner {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            transition: transform 0.3s ease;
+            transform-style: preserve-3d;
+        }
+
+        .product:hover .product-inner {
+            transform: rotateY(15deg) rotateX(5deg);
+        }
+
+        .product img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.4s ease;
+            border-radius: 10px;
+        }
+
+        .product-info {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            color: white;
+            opacity: 0;
+            transition: opacity 0.4s;
+        }
+
+        .product:hover .product-info {
+            opacity: 1;
+        }
+
+        .product-info h3 {
+            font-size: 1.4rem;
+            margin-bottom: 10px;
+        }
+
+        .product-info p {
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+        }
+
+        .product-info button {
+            padding: 12px 25px;
+            background-color: #ff5722;
+            border: none;
+            color: white;
+            cursor: pointer;
+            border-radius: 5px;
+            font-size: 1rem;
+            transition: background-color 0.3s;
+        }
+
+        .product-info button:hover {
+            background-color: #e64a19;
+        }
+
+        /* Footer */
+        footer {
+            background-color: #333;
+            color: #fff;
+            width: 100%;
+            text-align: center;
+            padding: 20px 0;
+            margin-top: 30px;
+        }
+
+        /* Media Queries for Responsiveness */
+        @media (max-width: 1024px) {
+            .product-section {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .product-section {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .product-info h3 {
+                font-size: 1.1rem;
+            }
+
+            .product-info p {
+                font-size: 1rem;
+            }
+
+            .search-input {
+                width: 200px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .product-section {
+                grid-template-columns: 1fr;
+                padding: 20px;
+            }
+
+            nav a {
+                font-size: 1rem;
+                margin: 0 10px;
+            }
+
+            .search-input {
+                width: 150px;
+            }
+
+            header h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>3D eCommerce Store</h1>
+</header>
+
+<nav>
+    <div>
+        <a href="#">Home</a>
+        <a href="#">Shop</a>
+        <a href="#">About Us</a>
+        <a href="#">Contact</a>
+    </div>
+    <div class="search-container">
+        <input type="text" class="search-input" placeholder="Search products...">
+    </div>
+</nav>
+
+<div class="product-section">
+    <div class="product">
+        <div class="product-inner">
+            <img src="https://cdn.mos.cms.futurecdn.net/KDtxxKuvtvDrxrx2ntEbWV.jpg" alt="Gaming Laptop">
+            <div class="product-info">
+                <h3>Gaming Laptop</h3>
+                <p>$1,199.99</p>
+                <button>Add to Cart</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="product">
+        <div class="product-inner">
+            <img src="https://rukminim2.flixcart.com/image/850/1000/xif0q/mobile/7/c/t/105-single-sim-keypad-mobile-phone-with-wireless-fm-radio-ta-original-imah3nhecpzsx3g9.jpeg?q=20&crop=false" alt="Keypad Mobile">
+            <div class="product-info">
+                <h3>Keypad Mobile</h3>
+                <p>$25.99</p>
+                <button>Add to Cart</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="product">
+        <div class="product-inner">
+            <img src="https://m.media-amazon.com/images/I/713SsA7gftL._AC_UF1000,1000_QL80_.jpg" alt="Wireless Headphones">
+            <div class="product-info">
+                <h3>Wireless Headphones</h3>
+                <p>$89.99</p>
+                <button>Add to Cart</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="product">
+        <div class="product-inner">
+            <img src="https://computercity.com/wp-content/uploads/gaming-pc-01-Slate8Mesh-main-2400-solo1-2160x2160.png" alt="Gaming PC">
+            <div class="product-info">
+                <h3>Gaming PC</h3>
+                <p>$1,499.99</p>
+                <button>Add to Cart</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="product">
+        <div class="product-inner">
+            <img src="https://images-cdn.ubuy.co.in/634490da56a60c4ade43cb88-skytech-prism-ii-gaming-pc-desktop-amd.jpg" alt="Gaming PC Desktop">
+            <div class="product-info">
+                <h3>Gaming PC Desktop</h3>
+                <p>$2,299.99</p>
+                <button>Add to Cart</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<footer>
+    <p>&copy; 2025 3D eCommerce Store | All rights reserved.</p>
+</footer>
+
+</body>
+</html>
